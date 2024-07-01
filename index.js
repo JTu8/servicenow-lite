@@ -147,6 +147,17 @@ function createTicket(params, prefix, callback) {
   });
 }
 
+// Updates ticket by tickets number
+function updateTicket(params, id, callback) {
+  getClient(config.tableName(id), function(err, client) {
+    if (err) {
+      callback(err, null);
+      return;
+    }
+    client.update(params, callback);
+  });
+}
+
 // Find all items in this table that match the string `searchTerm`.
 function searchRecords(table, searchTerm, callback) {
   var prefix = config.prefixFromTableName(table);
@@ -205,6 +216,7 @@ module.exports = {
   recordsCreatedBy: recordsCreatedBy,
   workNotesBySysId: workNotesBySysId,
   createTicket: createTicket,
+  updateTicket: updateTicket,
   search: search,
   getUser: getUser,
   config: config
